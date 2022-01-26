@@ -1,26 +1,93 @@
-#include<fcntl.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jelorza- <jelorza-@student.42urduli>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/19 18:10:21 by jelorza-          #+#    #+#             */
+/*   Updated: 2022/01/26 20:24:09 by jelorza-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	char *buff;
-	int bit_amount;
-
+	char 		*buff;
+	static char *rest_buff;
+	int			bit_counter;
+	char		*line;
+	
+	bit_counter = 1;
 	if(fd == -1 || BUFFER_SIZE <= 0)
-	{	
-		printf("Error en el inicio de la funcion, el descriptor no ha sido abierto o el buffer_size es incorrecto");
 		return (NULL);
-	}
 	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	bit_amount = read(fd, buff, BUFFER_SIZE);
-	buff[BUFFER_SIZE + 1] = 00;
 	if (!buff)
-	{
-		printf("El archivo esta vacio");
 		return (0);
+	while (ft_find_char(rest_buff, '\n') && bit_counter != 0)
+	{
+		bit_counter = read(fd, buff, BUFFER_SIZE);	
+		buff[bit_counter] = 00;
+		if (bit_counter == -1)
+		{
+			free(buff);
+			return (NULL);
+		}
+		rest_buff = ft_join(rest_buff, buff);
+	}	
+	line = ft_line_out(rest_buff);
+	rest_buff = ft_new_rest(rest_buff);
+	free(buff);
+	return (line);
+}
+
+
+char	*ft_line_out(char *rest_buff)
+{
+	char	*line_out;
+	size_t	i;
+	size_t	k;
+
+	k = 0;
+	i = 0;
+	if (ft_find_char(rest_buff, '\n') == 1)
+		return (rest_buff);
+	while (rest_buff[i] != '\n')
+		i++;
+	line_out = malloc(sizeof(char) * i + 2);
+	while (i + 1 > 0)
+	{
+		line_out[k] = rest_buff[k];
+		i--;
+		k++;
 	}
-	return (buff);
-	free(buff);	
+	line_out[k] = 00;
+	return (line_out);
+}
+
+
+char	*ft_new_rest(char *rest_buff)
+{
+	char	*aux_rest_buff;
+	size_t	count;
+	size_t i;
+
+	i = 0;
+	if (ft_find_char(rest_buff, '\n') == 1)
+		return (00);
+	while (rest_buff[i] != '\n')
+		i++;
+	count = 0;
+	i++;
+	aux_rest_buff = malloc(sizeof(char) * ( ft_strlen(rest_buff) - i + 1)); //reservo espacio para una cadena auxilia
+	while (rest_buff[i])
+	{
+		aux_rest_buff[count] = rest_buff[i]; // copio el resto a esta cadena auxiliar
+		count++;
+		i++;
+	}
+	aux_rest_buff[count] = 00;
+	free(rest_buff);
+	return (aux_rest_buff);
 }
