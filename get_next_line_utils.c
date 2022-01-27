@@ -6,7 +6,7 @@
 /*   By: jelorza- <jelorza-@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:48:57 by jelorza-          #+#    #+#             */
-/*   Updated: 2022/01/26 20:24:06 by jelorza-         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:49:45 by jelorza-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int ft_strlen(char *str)
 	return (counter);
 }
 
-char	*ft_join(char *rest_buff, char *buff)
+char	*ft_join(char *rest_buff, char *buff, int bit_counter)
 {
 	char *str_joined;
 	size_t i;
@@ -30,6 +30,11 @@ char	*ft_join(char *rest_buff, char *buff)
 
 	i = 0;
 	j = 0;
+	if (bit_counter == 0 && !rest_buff)
+	{
+		free(rest_buff);
+		return (NULL);
+	}
 	if (rest_buff == NULL)
 	{
 		str_joined = malloc(sizeof(char) * (ft_strlen(buff) + 1));	

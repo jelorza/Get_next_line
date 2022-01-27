@@ -6,7 +6,7 @@
 /*   By: jelorza- <jelorza-@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 18:10:21 by jelorza-          #+#    #+#             */
-/*   Updated: 2022/01/26 20:24:09 by jelorza-         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:49:38 by jelorza-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ char	*get_next_line(int fd)
 			free(buff);
 			return (NULL);
 		}
-		rest_buff = ft_join(rest_buff, buff);
+		rest_buff = ft_join(rest_buff, buff, bit_counter);
 	}	
 	line = ft_line_out(rest_buff);
 	rest_buff = ft_new_rest(rest_buff);
 	free(buff);
 	return (line);
 }
-
 
 char	*ft_line_out(char *rest_buff)
 {
@@ -51,6 +50,8 @@ char	*ft_line_out(char *rest_buff)
 
 	k = 0;
 	i = 0;
+	if (!rest_buff)
+		return (NULL);
 	if (ft_find_char(rest_buff, '\n') == 1)
 		return (rest_buff);
 	while (rest_buff[i] != '\n')
@@ -74,6 +75,8 @@ char	*ft_new_rest(char *rest_buff)
 	size_t i;
 
 	i = 0;
+	if (!rest_buff)
+		return (NULL);
 	if (ft_find_char(rest_buff, '\n') == 1)
 		return (00);
 	while (rest_buff[i] != '\n')
