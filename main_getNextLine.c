@@ -12,7 +12,7 @@ int main(void)
 	j = 0;
 
 	line = "1";
-	fd = open("/Users/jelorza-/Desktop/get_next_line/gnlTester/files/nl", O_RDWR);
+	fd = open("/Users/jelorza-/Desktop/get_next_line/gnlTester/files/multiple_line_no_nl", O_RDWR);
 	if (fd == -1)
 		printf("Ha habido un error");
 	else
@@ -21,7 +21,7 @@ int main(void)
 	while (line)
 	{
 			line = get_next_line(fd);
-			printf("%s-----", line);
+			printf("%s------", line);
 			j++;
 		}
 	}

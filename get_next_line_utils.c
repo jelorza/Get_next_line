@@ -6,17 +6,17 @@
 /*   By: jelorza- <jelorza-@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:48:57 by jelorza-          #+#    #+#             */
-/*   Updated: 2022/01/27 11:49:45 by jelorza-         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:08:19 by jelorza-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int counter;
+	int	counter;
 
-	counter = 0;	
+	counter = 0;
 	while (str[counter])
 		counter++;
 	return (counter);
@@ -24,9 +24,9 @@ int ft_strlen(char *str)
 
 char	*ft_join(char *rest_buff, char *buff, int bit_counter)
 {
-	char *str_joined;
-	size_t i;
-	size_t j;
+	char	*str_joined;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -37,7 +37,7 @@ char	*ft_join(char *rest_buff, char *buff, int bit_counter)
 	}
 	if (rest_buff == NULL)
 	{
-		str_joined = malloc(sizeof(char) * (ft_strlen(buff) + 1));	
+		str_joined = malloc(sizeof(char) * (ft_strlen(buff) + 1));
 		while (buff[i])
 		{
 			str_joined[i] = buff[i];
@@ -47,7 +47,7 @@ char	*ft_join(char *rest_buff, char *buff, int bit_counter)
 	}
 	else
 	{
-		str_joined = malloc(sizeof(char) * (ft_strlen(rest_buff) + ft_strlen(buff) + 1));	
+		str_joined = malloc(sizeof(char) * (ft_strlen(rest_buff) + ft_strlen(buff) + 1));
 		while (rest_buff[i])
 		{
 			str_joined[i] = rest_buff[i];
@@ -67,7 +67,7 @@ char	*ft_join(char *rest_buff, char *buff, int bit_counter)
 
 int	ft_find_char(char *rest_buff, char c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!rest_buff)
