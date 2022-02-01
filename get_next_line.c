@@ -6,7 +6,7 @@
 /*   By: jelorza- <jelorza-@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 18:10:21 by jelorza-          #+#    #+#             */
-/*   Updated: 2022/01/28 15:08:17 by jelorza-         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:46:24 by jelorza-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,9 @@ char	*ft_line_out(char *rest_buff)
 		return (NULL);
 	if (ft_find_char(rest_buff, '\n'))
 		return (rest_buff);
-	//if (rest_buff[0] == '\n')
-	//	line_out = malloc(sizeof(char) * 2);  -----------para repasar por que creo qie es necesario pero sin esto me funciona bien tambien-------------
-//	else
-//	{
-		while (rest_buff[i] != '\n')
-			i++;
-		line_out = malloc(sizeof(char) * i + 2);
-//	}
+	while (rest_buff[i] != '\n')
+		i++;
+	line_out = malloc(sizeof(char) * i + 2);
 	while (i + 1 > 0)
 	{
 		line_out[k] = rest_buff[k];
@@ -75,24 +70,18 @@ char	*ft_new_rest(char *rest_buff)
 	char	*aux_rest_buff;
 	size_t	count;
 	size_t	i;
+	char	*r;
 
+	r = rest_buff;
 	i = 0;
 	if (!rest_buff || ft_find_char(rest_buff, '\n'))
 		return (NULL);
-	if (rest_buff[0] == '\n' && rest_buff[1] == 00)
-	{
-		free(rest_buff);
-		return 00;
-	}
+	if (ft_rest_buff_to_null(rest_buff))
+		return (NULL);
 	while (rest_buff[i] != '\n')
 		i++;
-	if (rest_buff[i] == '\n' && rest_buff[i + 1] == 00)
-	{
-		free(rest_buff);
-		return 00;
-	} 
 	count = 0;
-	aux_rest_buff = malloc(sizeof(char) * ( ft_strlen(rest_buff) - ++i + 1));
+	aux_rest_buff = malloc(sizeof(char) * (ft_strlen(rest_buff) - ++i + 1));
 	while (rest_buff[i])
 	{
 		aux_rest_buff[count] = rest_buff[i];
@@ -102,4 +91,23 @@ char	*ft_new_rest(char *rest_buff)
 	aux_rest_buff[count] = 00;
 	free(rest_buff);
 	return (aux_rest_buff);
+}
+
+int	ft_rest_buff_to_null(char *rest_buff)
+{
+	size_t	i;
+	char	*r;
+
+	r = rest_buff;
+	i = 0;
+	while (rest_buff[i] != '\n')
+		i++;
+	if (!rest_buff || ft_find_char(rest_buff, '\n'))
+		return (1);
+	if ((r[0] == '\n' && !r[1]) || (r[i] == '\n' && r[i + 1] == 00))
+	{
+		free(rest_buff);
+		return (1);
+	}
+	return (0);
 }

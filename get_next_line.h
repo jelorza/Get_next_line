@@ -6,7 +6,7 @@
 /*   By: jelorza- <jelorza-@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:57:09 by jelorza-          #+#    #+#             */
-/*   Updated: 2022/01/28 15:08:22 by jelorza-         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:54:36 by jelorza-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 // me quedan los funciones por recortar
 
-//# define BUFFER_SIZE 1
+//# define BUFFER_SIZE 5
 //gcc -g3 -fsanitize=address -Wall -Wextra -Werror get_next_line.c 
 //main_getNextLine.c get_next_line_utils.c
 
@@ -30,5 +30,7 @@ char	*ft_join(char *rest_buff, char *buff, int bit_counter);
 int		ft_find_char(char *rest_buff, char c);
 char	*ft_line_out(char *rest_buff);
 char	*ft_new_rest(char *rest_buff);
+int		ft_rest_buff_to_null(char *rest_buff);
+char	*ft_str_joined(char *rest_buff, char *buff);
 
 #endif
